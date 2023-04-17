@@ -11,30 +11,33 @@ import org.springframework.batch.core.step.tasklet.Tasklet;
 import org.springframework.batch.repeat.RepeatStatus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration(proxyBeanMethods = false)
 public class JobAConfiguration {
 
-        private static final Log logger = LogFactory.getLog(JobAConfiguration.class);
+    private static final Log logger = LogFactory.getLog(JobAConfiguration.class);
 
-        @Autowired
-        public JobBuilderFactory jobBuilderFactory;
+    @Autowired
+    public JobBuilderFactory jobBuilderFactory;
 
-        @Autowired
-        public StepBuilderFactory stepBuilderFactory;
+    @Autowired
+    public StepBuilderFactory stepBuilderFactory;
 
-        @Bean
-        public Job jobA() {
-            return this.jobBuilderFactory.get("job1")
-                    .start(this.stepBuilderFactory.get("job1step1")
-                            .tasklet(new Tasklet() {
-                                @Override
-                                public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-                                    logger.info("Job1 was run");
-//                                    throw new IllegalArgumentException("OUCH");
-						return RepeatStatus.FINISHED;
-                                }
-                            })
-                            .build())
-                    .build();
-        }
+    @Bean
+    public Job jobA() {
+        return this.jobBuilderFactory.get("job1")
+                .start(this.stepBuilderFactory.get("job1step1")
+                        .tasklet(new Tasklet() {
+                            @Override
+                            public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
+                                logger.info("JobA" +
+                                        " was run");
+//                                    throw new IllegalStateException("OUCH");
+                                return RepeatStatus.FINISHED;
+                            }
+                        })
+                        .build())
+                .build();
+    }
 }

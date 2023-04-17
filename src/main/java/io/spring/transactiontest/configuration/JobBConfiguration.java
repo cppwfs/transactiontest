@@ -50,7 +50,7 @@ public class JobBConfiguration {
 				.tasklet(new Tasklet() {
 					@Override
 					public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
-						logger.info("Job2 was run");
+						logger.info("JobB was run");
 						return RepeatStatus.FINISHED;
 					}
 				})
