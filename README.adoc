@@ -1,0 +1,30 @@
+= Sample Multi Database Batch Task App
+
+This is a Spring Cloud Task application that executes two simple Spring Batch Jobs.  With multiple datasources.
+
+== Requirements:
+
+* Java 8 or Above
+
+== Classes:
+
+* TransactionTestApplication - the Spring Boot Main Application
+* JobAConfiguration - the configuration for Spring Batch Job A
+* JobBConfiguration - the configuration for Spring Batch Job B
+* MultipleDataSourceConfiguration - the configuration for Multiple DataSources
+* CustomTaskConfigurer - The task configurer for selecting the proper datasource
+
+
+== Build:
+
+[source,shell,indent=2]
+----
+$ mvn clean package
+----
+
+== Run:
+
+[source,shell,indent=2]
+----
+$ java -jar target/transactiontest-0.0.1-SNAPSHOT.jar
+----
